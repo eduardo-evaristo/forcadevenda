@@ -69,6 +69,7 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Cadastrar Cliente')),
       body: Center(
         child: SingleChildScrollView(
           child: Container(

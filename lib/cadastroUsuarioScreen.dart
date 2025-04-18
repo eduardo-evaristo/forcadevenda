@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto/controladoraUsuario.dart';
 import 'package:projeto/error.dart';
 
 enum _errorEnum { usuario, senha }
@@ -13,6 +14,7 @@ class Cadastrousuarioscreen extends StatefulWidget {
 class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
   TextEditingController _controllerNome = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
+  UsuarioController controller = UsuarioController();
   bool nomeError = false;
   bool senhaError = false;
   bool hidePassword = true;
@@ -30,6 +32,7 @@ class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
       });
       return;
     }
+    controller.saveUsuario(_controllerNome.text, _controllerSenha.text);
   }
 
   void _dismissNomeError() {
@@ -53,6 +56,7 @@ class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Cadastrar Usuário')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

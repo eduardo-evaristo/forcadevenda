@@ -19,6 +19,7 @@ class _CadastroProdutoListScreenState extends State<CadastroProdutoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Cadastrar Produto')),
       floatingActionButton: ElevatedButton(
         onPressed: () {
           Navigator.push(
