@@ -52,7 +52,23 @@ class _CadastroClienteListScreenState extends State<CadastroClienteListScreen> {
               return ListTile(
                 title: Text(cliente.nome),
                 subtitle: Text('ID: ${cliente.id}'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                trailing: PopupMenuButton<String>(
+                  onSelected: (value) {
+                    if (value == 'delete') {
+                      setState(() {
+                        control.deleteCliente(cliente);
+                      });
+                    }
+                  },
+                  itemBuilder:
+                      (BuildContext context) => [
+                        const PopupMenuItem(
+                          value: 'delete',
+                          child: Text('Excluir'),
+                        ),
+                      ],
+                  icon: const Icon(Icons.more_vert),
+                ),
                 onTap: () {
                   Navigator.push(
                     context,

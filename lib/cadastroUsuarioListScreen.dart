@@ -17,6 +17,15 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => Cadastrousuarioscreen()),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
       body: FutureBuilder<List<Usuario>>(
         future: control.loadList(),
         builder: (context, snapshot) {
@@ -43,7 +52,23 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
               return ListTile(
                 title: Text(usuario.nome),
                 subtitle: Text('ID: ${usuario.id}'),
-                trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                trailing: PopupMenuButton<String>(
+                  onSelected: (value) {
+                    if (value == 'delete') {
+                      setState(() {
+                        control.deleteUsuario(usuario);
+                      });
+                    }
+                  },
+                  itemBuilder:
+                      (BuildContext context) => [
+                        const PopupMenuItem(
+                          value: 'delete',
+                          child: Text('Excluir'),
+                        ),
+                      ],
+                  icon: const Icon(Icons.more_vert),
+                ),
                 onTap: () {
                   Navigator.push(
                     context,
