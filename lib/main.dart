@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:projeto/cadastroClienteListScreen.dart';
 import 'package:projeto/cadastroClienteScreen.dart';
+import 'package:projeto/cadastroProdutoListScreen.dart';
 import 'package:projeto/cadastroProdutoScreen.dart';
 import 'package:projeto/cadastroUsuarioListScreen.dart';
 import 'package:projeto/cadastroUsuarioScreen.dart';
+import 'package:projeto/loginScreen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -16,12 +18,13 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cadastro App',
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
         '/': (context) => const HomeScreen(),
         '/usuarios': (context) => const CadastroUsuarioListScreen(),
         '/clientes': (context) => const CadastroClienteListScreen(),
-        '/produtos': (context) => const CadastroProdutoScreen(),
+        '/produtos': (context) => const CadastroProdutoListScreen(),
+        '/login': (context) => const LoginScreen(),
       },
     );
   }
@@ -34,6 +37,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Tela Inicial')),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
