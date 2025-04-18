@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto/controladoraCliente.dart';
 import 'package:projeto/error.dart';
 
 class CadastroClienteScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
   final TextEditingController _bairroController = TextEditingController();
   final TextEditingController _cidadeController = TextEditingController();
   final TextEditingController _ufController = TextEditingController();
+  var _control = ClienteController();
 
   String tipoSelecionado = 'Pessoa Física';
   bool nomeError = false;
@@ -38,7 +40,18 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
       return;
     }
 
-    // Aqui pode salvar os dados como quiser
+    _control.saveCliente(
+      nome: _nomeController.text,
+      tipo: tipoSelecionado,
+      cpfCnpj: _cpfCnpjController.text,
+      bairro: _bairroController.text,
+      cep: _cepController.text,
+      cidade: _cidadeController.text,
+      email: _emailController.text,
+      endereco: _enderecoController.text,
+      telefone: _telefoneController.text,
+      uf: _ufController.text,
+    );
   }
 
   void _dismissNomeError() {

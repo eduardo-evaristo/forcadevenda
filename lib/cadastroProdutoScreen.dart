@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto/controladoraProduto.dart';
 import 'package:projeto/error.dart';
 
 class CadastroProdutoScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _CadastroProdutoScreenState extends State<CadastroProdutoScreen> {
   final _controllerStatus = TextEditingController();
   final _controllerCusto = TextEditingController();
   final _controllerCodigoBarras = TextEditingController();
+  var _control = ProdutoController();
 
   bool nomeError = false;
   bool unidadeError = false;
@@ -40,7 +42,14 @@ class _CadastroProdutoScreenState extends State<CadastroProdutoScreen> {
         statusError)
       return;
 
-    // salvar os dados (fazer algo com eles)
+    // salvar os dados (fazer algo com eles
+    _control.saveProduto(
+      nome: _controllerNome.text,
+      unidade: _selectedUnidade,
+      qtdEstoque: _controllerQtdEstoque.text,
+      precoVenda: _controllerPrecoVenda.text,
+      status: _controllerStatus.text,
+    );
   }
 
   void _dismissError(String campo) {
