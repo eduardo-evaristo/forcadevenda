@@ -67,14 +67,7 @@ class Cliente {
 }
 
 class ClienteController {
-  List<Cliente> clientes = [
-    Cliente(
-      id: 0,
-      nome: 'Fulano',
-      tipo: 'Pessoa Física',
-      cpfCnpj: '000.000.000-00',
-    ),
-  ];
+  List<Cliente> clientes = [];
 
   void saveCliente({
     required String nome,

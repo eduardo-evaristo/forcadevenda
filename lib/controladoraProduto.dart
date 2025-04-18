@@ -54,16 +54,7 @@ class Produto {
 }
 
 class ProdutoController {
-  List<Produto> produtos = [
-    Produto(
-      id: 0,
-      nome: 'Produto exemplo',
-      unidade: 'un',
-      qtdEstoque: '10',
-      precoVenda: '9.99',
-      status: '0',
-    ),
-  ];
+  List<Produto> produtos = [];
 
   void saveProduto({
     required String nome,

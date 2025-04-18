@@ -27,7 +27,7 @@ class Usuario {
 }
 
 class UsuarioController {
-  List<Usuario> usuarios = [Usuario(id: 0, nome: 'Abc', senha: 'aaaaaaaaa')];
+  List<Usuario> usuarios = [];
 
   void saveUsuario(String nome, String senha) {
     Usuario usuario = Usuario(id: usuarios.length, nome: nome, senha: senha);
