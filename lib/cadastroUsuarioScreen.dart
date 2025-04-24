@@ -37,6 +37,32 @@ class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
       return;
     }
     controller.saveUsuario(_controllerNome.text, _controllerSenha.text);
+    Navigator.pop(context);
+  }
+
+  dynamic _editUser() {
+    if (!areFieldsValid() || widget.usuarioToBeUpdated == null) return;
+    controller.editUsuario(
+      _controllerNome.text,
+      _controllerSenha.text,
+      widget.usuarioToBeUpdated!.id,
+    );
+    Navigator.pop(context);
+  }
+
+  bool areFieldsValid() {
+    if (_controllerNome.text.isEmpty) {
+      setState(() {
+        nomeError = true;
+      });
+      return false;
+    } else if (_controllerSenha.text.isEmpty) {
+      setState(() {
+        senhaError = true;
+      });
+      return false;
+    }
+    return true;
   }
 
   void _dismissNomeError() {

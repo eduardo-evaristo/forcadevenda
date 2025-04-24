@@ -40,6 +40,14 @@ class UsuarioController {
     return saveListToFile();
   }
 
+  void editUsuario(String nome, String senha, int id) {
+    int oldUsuarioIndex = usuarios.indexWhere((usuario) => usuario.id == id);
+    //Modifying
+    usuarios[oldUsuarioIndex].nome = nome;
+    usuarios[oldUsuarioIndex].senha = senha;
+    return saveListToFile();
+  }
+
   Future<List<Usuario>> loadList() async {
     final Directory dir = await getApplicationSupportDirectory();
     String folder = dir.path;
