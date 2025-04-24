@@ -98,6 +98,39 @@ class ClienteController {
     return saveListToFile();
   }
 
+  void editCliente({
+    required String nome,
+    required String cpfCnpj,
+    required String tipo,
+    String? email,
+    String? telefone,
+    String? cep,
+    String? endereco,
+    String? bairro,
+    String? cidade,
+    String? uf,
+    required int id,
+  }) {
+    int index = clientes.indexWhere((c) => c.id == id);
+    if (index == -1) return;
+
+    clientes[index] = Cliente(
+      id: id,
+      nome: nome,
+      cpfCnpj: cpfCnpj,
+      tipo: tipo,
+      email: email,
+      telefone: telefone,
+      cep: cep,
+      endereco: endereco,
+      bairro: bairro,
+      cidade: cidade,
+      uf: uf,
+    );
+
+    saveListToFile();
+  }
+
   void deleteCliente(Cliente cliente) {
     clientes.remove(cliente);
     return saveListToFile();

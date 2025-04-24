@@ -3,7 +3,8 @@ import 'package:projeto/controladoraCliente.dart';
 import 'package:projeto/error.dart';
 
 class CadastroClienteScreen extends StatefulWidget {
-  const CadastroClienteScreen({super.key});
+  const CadastroClienteScreen({super.key, this.clienteToBeUpdated});
+  final Cliente? clienteToBeUpdated;
 
   @override
   State<CadastroClienteScreen> createState() => _CadastroClienteScreenState();
@@ -25,7 +26,7 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
   bool nomeError = false;
   bool cpfCnpjError = false;
 
-  void _saveUser() {
+  void _saveCliente() {
     if (_nomeController.text.isEmpty) {
       setState(() {
         nomeError = true;
@@ -52,6 +53,39 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
       telefone: _telefoneController.text,
       uf: _ufController.text,
     );
+    Navigator.pop(context);
+  }
+
+  void _editCliente() {
+    if (_nomeController.text.isEmpty) {
+      setState(() {
+        nomeError = true;
+      });
+      return;
+    }
+
+    if (_cpfCnpjController.text.isEmpty) {
+      setState(() {
+        cpfCnpjError = true;
+      });
+      return;
+    }
+
+    _control.editCliente(
+      nome: _nomeController.text,
+      tipo: tipoSelecionado,
+      cpfCnpj: _cpfCnpjController.text,
+      bairro: _bairroController.text,
+      cep: _cepController.text,
+      cidade: _cidadeController.text,
+      email: _emailController.text,
+      endereco: _enderecoController.text,
+      telefone: _telefoneController.text,
+      uf: _ufController.text,
+      id: widget.clienteToBeUpdated!.id,
+    );
+
+    Navigator.pop(context);
   }
 
   void _dismissNomeError() {
@@ -66,8 +100,23 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
     });
   }
 
+  void setUpdatingInformation() {
+    if (widget.clienteToBeUpdated == null) return;
+    _nomeController.text = widget.clienteToBeUpdated!.nome;
+    _cpfCnpjController.text = widget.clienteToBeUpdated!.cpfCnpj;
+    tipoSelecionado = widget.clienteToBeUpdated!.tipo;
+    _emailController.text = widget.clienteToBeUpdated!.email ?? '';
+    _telefoneController.text = widget.clienteToBeUpdated!.telefone ?? '';
+    _cepController.text = widget.clienteToBeUpdated!.cep ?? '';
+    _enderecoController.text = widget.clienteToBeUpdated!.endereco ?? '';
+    _bairroController.text = widget.clienteToBeUpdated!.bairro ?? '';
+    _cidadeController.text = widget.clienteToBeUpdated!.cidade ?? '';
+    _ufController.text = widget.clienteToBeUpdated!.uf ?? '';
+  }
+
   @override
   void initState() {
+    setUpdatingInformation();
     _control.loadList();
     super.initState();
   }
@@ -158,8 +207,15 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
                   width: 300,
                   margin: const EdgeInsets.symmetric(vertical: 30),
                   child: ElevatedButton(
-                    onPressed: _saveUser,
-                    child: Text('Cadastrar-se'),
+                    onPressed:
+                        widget.clienteToBeUpdated == null
+                            ? _saveCliente
+                            : _editCliente,
+                    child: Text(
+                      widget.clienteToBeUpdated == null
+                          ? 'Cadastrar cliente'
+                          : 'Atualizar cliente',
+                    ),
                   ),
                 ),
               ],

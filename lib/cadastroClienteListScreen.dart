@@ -22,7 +22,10 @@ class _CadastroClienteListScreenState extends State<CadastroClienteListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => CadastroClienteScreen()),
-          );
+          ).then((_) async {
+            control.loadList();
+            setState(() {});
+          });
         },
         child: Icon(Icons.add),
       ),
@@ -58,6 +61,19 @@ class _CadastroClienteListScreenState extends State<CadastroClienteListScreen> {
                       setState(() {
                         control.deleteCliente(cliente);
                       });
+                    } else if (value == 'edit') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (_) => CadastroClienteScreen(
+                                clienteToBeUpdated: cliente,
+                              ),
+                        ),
+                      ).then((_) async {
+                        control.loadList();
+                        setState(() {});
+                      });
                     }
                   },
                   itemBuilder:
@@ -66,14 +82,26 @@ class _CadastroClienteListScreenState extends State<CadastroClienteListScreen> {
                           value: 'delete',
                           child: Text('Excluir'),
                         ),
+                        const PopupMenuItem(
+                          value: 'edit',
+                          child: Text('Editar'),
+                        ),
                       ],
                   icon: const Icon(Icons.more_vert),
                 ),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => CadastroClienteScreen()),
-                  );
+                    MaterialPageRoute(
+                      builder:
+                          (_) => CadastroClienteScreen(
+                            clienteToBeUpdated: cliente,
+                          ),
+                    ),
+                  ).then((_) async {
+                    control.loadList();
+                    setState(() {});
+                  });
                 },
               );
             },
