@@ -22,7 +22,10 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => Cadastrousuarioscreen()),
-          );
+          ).then((_) async {
+            control.loadList();
+            setState(() {});
+          });
         },
         child: Icon(Icons.add),
       ),
@@ -67,7 +70,10 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
                                 usuarioToBeUpdated: usuario,
                               ),
                         ),
-                      );
+                      ).then((_) async {
+                        control.loadList();
+                        setState(() {});
+                      });
                     }
                   },
                   itemBuilder:
@@ -86,8 +92,16 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => Cadastrousuarioscreen()),
-                  );
+                    MaterialPageRoute(
+                      builder:
+                          (_) => Cadastrousuarioscreen(
+                            usuarioToBeUpdated: usuario,
+                          ),
+                    ),
+                  ).then((_) async {
+                    control.loadList();
+                    setState(() {});
+                  });
                 },
               );
             },

@@ -25,7 +25,10 @@ class _CadastroProdutoListScreenState extends State<CadastroProdutoListScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => CadastroProdutoScreen()),
-          );
+          ).then((_) async {
+            _control.loadList();
+            setState(() {});
+          });
         },
         child: Icon(Icons.add),
       ),
@@ -92,8 +95,16 @@ class _CadastroProdutoListScreenState extends State<CadastroProdutoListScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => CadastroProdutoScreen()),
-                  );
+                    MaterialPageRoute(
+                      builder:
+                          (_) => CadastroProdutoScreen(
+                            produtoToBeUpdated: produto,
+                          ),
+                    ),
+                  ).then((_) async {
+                    _control.loadList();
+                    setState(() {});
+                  });
                 },
               );
             },
