@@ -79,6 +79,33 @@ class ProdutoController {
     return saveListToFile();
   }
 
+  void editProduto({
+    required int id,
+    required String nome,
+    required String unidade,
+    required String qtdEstoque,
+    required String precoVenda,
+    required String status,
+    String? custo,
+    String? codigoBarras,
+  }) {
+    int index = produtos.indexWhere((produto) => produto.id == id);
+    if (index == -1) return;
+
+    produtos[index] = Produto(
+      id: id,
+      nome: nome,
+      unidade: unidade,
+      qtdEstoque: qtdEstoque,
+      precoVenda: precoVenda,
+      status: status,
+      custo: custo,
+      codigoBarras: codigoBarras,
+    );
+
+    saveListToFile();
+  }
+
   void deleteProduto(Produto produto) {
     produtos.remove(produto);
     return saveListToFile();

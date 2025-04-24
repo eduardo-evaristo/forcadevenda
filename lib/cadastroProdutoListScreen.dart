@@ -61,6 +61,19 @@ class _CadastroProdutoListScreenState extends State<CadastroProdutoListScreen> {
                       setState(() {
                         _control.deleteProduto(produto);
                       });
+                    } else if (value == 'edit') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (_) => CadastroProdutoScreen(
+                                produtoToBeUpdated: produto,
+                              ),
+                        ),
+                      ).then((_) async {
+                        _control.loadList();
+                        setState(() {});
+                      });
                     }
                   },
                   itemBuilder:
@@ -68,6 +81,10 @@ class _CadastroProdutoListScreenState extends State<CadastroProdutoListScreen> {
                         const PopupMenuItem(
                           value: 'delete',
                           child: Text('Excluir'),
+                        ),
+                        const PopupMenuItem(
+                          value: 'edit',
+                          child: Text('Editar'),
                         ),
                       ],
                   icon: const Icon(Icons.more_vert),

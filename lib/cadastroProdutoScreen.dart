@@ -3,7 +3,8 @@ import 'package:projeto/controladoraProduto.dart';
 import 'package:projeto/error.dart';
 
 class CadastroProdutoScreen extends StatefulWidget {
-  const CadastroProdutoScreen({super.key});
+  const CadastroProdutoScreen({super.key, this.produtoToBeUpdated});
+  final Produto? produtoToBeUpdated;
 
   @override
   State<CadastroProdutoScreen> createState() => _CadastroProdutoScreenState();
@@ -49,11 +50,55 @@ class _CadastroProdutoScreenState extends State<CadastroProdutoScreen> {
       qtdEstoque: _controllerQtdEstoque.text,
       precoVenda: _controllerPrecoVenda.text,
       status: _controllerStatus.text,
+      codigoBarras: _controllerCodigoBarras.text,
+      custo: _controllerCusto.text,
     );
+  }
+
+  dynamic _editProduto() {
+    setState(() {
+      nomeError = _controllerNome.text.isEmpty;
+      unidadeError = _selectedUnidade.isEmpty;
+      estoqueError = _controllerQtdEstoque.text.isEmpty;
+      precoVendaError = _controllerPrecoVenda.text.isEmpty;
+      statusError = _controllerStatus.text.isEmpty;
+    });
+
+    if (nomeError ||
+        unidadeError ||
+        estoqueError ||
+        precoVendaError ||
+        statusError)
+      return;
+
+    _control.editProduto(
+      nome: _controllerNome.text,
+      unidade: _selectedUnidade,
+      qtdEstoque: _controllerQtdEstoque.text,
+      precoVenda: _controllerPrecoVenda.text,
+      status: _controllerStatus.text,
+      codigoBarras: _controllerCodigoBarras.text,
+      custo: _controllerCusto.text,
+      id: widget.produtoToBeUpdated!.id,
+    );
+    Navigator.pop(context);
+  }
+
+  void setUpdatingInformation() {
+    if (widget.produtoToBeUpdated == null) return;
+    _controllerNome.text = widget.produtoToBeUpdated!.nome;
+    _selectedUnidade = widget.produtoToBeUpdated!.unidade;
+    _controllerQtdEstoque.text = widget.produtoToBeUpdated!.qtdEstoque;
+    _controllerPrecoVenda.text = widget.produtoToBeUpdated!.precoVenda;
+    _controllerStatus.text = widget.produtoToBeUpdated!.status;
+    _controllerCusto.text = widget.produtoToBeUpdated!.custo ?? '';
+    _controllerCodigoBarras.text =
+        widget.produtoToBeUpdated!.codigoBarras ?? '';
   }
 
   @override
   void initState() {
+    setUpdatingInformation();
     _control.loadList();
     super.initState();
   }
@@ -185,8 +230,15 @@ class _CadastroProdutoScreenState extends State<CadastroProdutoScreen> {
                       width: 300,
                       margin: const EdgeInsets.symmetric(vertical: 30),
                       child: ElevatedButton(
-                        onPressed: _saveProduto,
-                        child: const Text('Cadastrar Produto'),
+                        onPressed:
+                            widget.produtoToBeUpdated == null
+                                ? _saveProduto
+                                : _editProduto,
+                        child: Text(
+                          widget.produtoToBeUpdated == null
+                              ? 'Cadastrar produto'
+                              : 'Atualizar produto',
+                        ),
                       ),
                     ),
                   ],
