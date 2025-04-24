@@ -109,6 +109,8 @@ class ClienteController {
     File file = File('$folder/clientes.txt');
     String list = await file.readAsString();
 
+    if (list.isEmpty) return clientes;
+
     List<dynamic> listToJson = jsonDecode(list);
     var temporaryNewList = listToJson.map(
       (jsonItem) => Cliente.fromJson(jsonItem),

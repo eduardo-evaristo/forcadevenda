@@ -90,6 +90,8 @@ class ProdutoController {
     File file = File('$folder/produtos.txt');
     String list = await file.readAsString();
 
+    if (list.isEmpty) return produtos;
+
     List<dynamic> listToJson = jsonDecode(list);
     var temporaryNewList = listToJson.map(
       (jsonItem) => Produto.fromJson(jsonItem),

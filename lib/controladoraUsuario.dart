@@ -27,7 +27,7 @@ class Usuario {
 }
 
 class UsuarioController {
-  List<Usuario> usuarios = [];
+  final List<Usuario> usuarios = [];
 
   void saveUsuario(String nome, String senha) {
     Usuario usuario = Usuario(id: usuarios.length, nome: nome, senha: senha);
@@ -46,6 +46,8 @@ class UsuarioController {
     File file = File(folder + '/usuarios.txt');
     //Reading the .txt file
     String list = await file.readAsString();
+
+    if (list.isEmpty) return usuarios;
 
     List<dynamic> listToJson = jsonDecode(list);
     var temporaryNewList = listToJson.map(
