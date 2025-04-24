@@ -58,6 +58,16 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
                       setState(() {
                         control.deleteUsuario(usuario);
                       });
+                    } else if (value == 'edit') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (_) => Cadastrousuarioscreen(
+                                usuarioToBeUpdated: usuario,
+                              ),
+                        ),
+                      );
                     }
                   },
                   itemBuilder:
@@ -65,6 +75,10 @@ class _CadastroUsuarioListScreenState extends State<CadastroUsuarioListScreen> {
                         const PopupMenuItem(
                           value: 'delete',
                           child: Text('Excluir'),
+                        ),
+                        const PopupMenuItem(
+                          value: 'edit',
+                          child: Text('Editar'),
                         ),
                       ],
                   icon: const Icon(Icons.more_vert),

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:projeto/controladoraUsuario.dart';
 import 'package:projeto/error.dart';
@@ -5,7 +7,9 @@ import 'package:projeto/error.dart';
 enum _errorEnum { usuario, senha }
 
 class Cadastrousuarioscreen extends StatefulWidget {
-  const Cadastrousuarioscreen({super.key});
+  const Cadastrousuarioscreen({super.key, this.usuarioToBeUpdated});
+  // Making it optional
+  final Usuario? usuarioToBeUpdated;
 
   @override
   State<Cadastrousuarioscreen> createState() => _CadastrousuarioscreenState();
@@ -53,8 +57,14 @@ class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
     });
   }
 
+  void setUpdatingInformation() {
+    if (widget.usuarioToBeUpdated == null) return;
+    _controllerNome.text = widget.usuarioToBeUpdated!.nome;
+  }
+
   @override
   void initState() {
+    setUpdatingInformation();
     controller.loadList();
     super.initState();
   }
@@ -102,9 +112,16 @@ class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
                   width: 300,
                   margin: EdgeInsets.symmetric(vertical: 30),
                   child: ElevatedButton(
-                    onPressed: _saveUser,
+                    onPressed:
+                        widget.usuarioToBeUpdated == null
+                            ? _saveUser
+                            : _editUser,
 
-                    child: Text('Cadastrar-se'),
+                    child: Text(
+                      widget.usuarioToBeUpdated == null
+                          ? 'Cadastrar'
+                          : 'Atualizar',
+                    ),
                   ),
                 ),
               ],
