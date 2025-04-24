@@ -67,6 +67,12 @@ class _CadastroClienteScreenState extends State<CadastroClienteScreen> {
   }
 
   @override
+  void initState() {
+    _control.loadList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Cadastrar Cliente')),

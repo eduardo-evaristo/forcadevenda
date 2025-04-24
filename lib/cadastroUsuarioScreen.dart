@@ -54,6 +54,12 @@ class _CadastrousuarioscreenState extends State<Cadastrousuarioscreen> {
   }
 
   @override
+  void initState() {
+    controller.loadList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Cadastrar Usuário')),

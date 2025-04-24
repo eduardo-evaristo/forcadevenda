@@ -52,6 +52,12 @@ class _CadastroProdutoScreenState extends State<CadastroProdutoScreen> {
     );
   }
 
+  @override
+  void initState() {
+    _control.loadList();
+    super.initState();
+  }
+
   void _dismissError(String campo) {
     setState(() {
       switch (campo) {
